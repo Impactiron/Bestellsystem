@@ -1,87 +1,231 @@
-const OrderService = require('../services/orderService'); // Hypothetical service for order db operations
-const pdfService = require('../services/pdfService'); // Hypothetical service for PDF generation
+const db = require('../config/database');
+const pdfService = require('../services/pdfService');
 
-// Create a new order
-const createOrder = async (req, res) => {
-    const orderData = req.body; // Assuming order data comes from request body
-
-    // Validate required fields, e.g., customerId, items, etc.
-    if (!orderData.customerId || !orderData.items || !Array.isArray(orderData.items)) {
-        return res.status(400).json({ message: 'Missing required fields' });
-    }
+// Create new order
+exports.createOrder = async (req, res) => {
+    const connection = await db.getConnection();
 
     try {
-        // Begin database transaction
-        const result = await OrderService.createOrder(orderData);
-        
-        // Generate PDF for the order
-        const pdfPath = await pdfService.generateOrderPdf(result.orderId);
+        await connection.beginTransaction();
 
-        // Return success response
-        return res.status(201).json({
-            message: 'Order created successfully',
-            orderDetails: result,
-            pdfPath: pdfPath
+        const { location_id, location_name, order_date, order_time, created_by, items, notes } = req.body;
+
+        // Validate required fields
+        if (!location_id || !items || items.length === 0) {
+            return res.status(400).json({
+                error: 'Bad Request',
+                message: 'Location and at least one item are required'
+            });
+        }
+
+        // Insert order header
+        const [orderResult] = await connection.query(
+            `INSERT INTO orders (location_id, order_date, order_time, status, total_items, notes, created_by)
+             VALUES (?, ?, ?, 'pending', ?, ?, ?)`,
+            [
+                location_id,
+                order_date || new Date().toISOString().split('T')[0],
+                order_time || new Date().toTimeString().split(' ')[0],
+                items.length,
+                notes || null,
+                created_by || 'system'
+            ]
+        );
+
+        const orderId = orderResult.insertId;
+
+        // Insert order items
+        for (const item of items) {
+            // Get product details including unit price
+            const [productRows] = await connection.query(
+                'SELECT unit_price FROM products WHERE product_id = ?',
+                [item.product_id]
+            );
+
+            const unitPrice = productRows[0]?.unit_price || 0;
+
+            await connection.query(
+                `INSERT INTO order_items (order_id, product_id, quantity, unit_price, notes)
+                 VALUES (?, ?, ?, ?, ?)`,
+                [
+                    orderId,
+                    item.product_id,
+                    item.quantity,
+                    unitPrice,
+                    item.notes || null
+                ]
+            );
+        }
+
+        await connection.commit();
+
+        // Fetch complete order details
+        const [orderDetails] = await connection.query(
+            `SELECT o.*, l.location_name
+             FROM orders o
+             JOIN locations l ON o.location_id = l.location_id
+             WHERE o.order_id = ?`,
+            [orderId]
+        );
+
+        const [orderItemsDetails] = await connection.query(
+            `SELECT oi.*, p.product_name, p.packaging
+             FROM order_items oi
+             JOIN products p ON oi.product_id = p.product_id
+             WHERE oi.order_id = ?`,
+            [orderId]
+        );
+
+        // Generate PDF
+        const pdfPath = await pdfService.generateOrderPDF({
+            ...orderDetails[0],
+            items: orderItemsDetails
         });
+
+        res.status(201).json({
+            success: true,
+            message: 'Order created successfully',
+            data: {
+                order_id: orderId,
+                location_name: orderDetails[0].location_name,
+                order_date: orderDetails[0].order_date,
+                total_items: items.length,
+                pdf_path: pdfPath
+            }
+        });
+
     } catch (error) {
-        return res.status(500).json({ message: 'Error creating order', error: error.message });
+        await connection.rollback();
+        console.error('Error creating order:', error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message
+        });
+    } finally {
+        connection.release();
     }
 };
 
 // Get all orders
-const getAllOrders = async (req, res) => {
+exports.getAllOrders = async (req, res) => {
     try {
-        const orders = await OrderService.getAllOrders();
-        return res.status(200).json(orders);
+        const [orders] = await db.query(
+            `SELECT o.*, l.location_name
+             FROM orders o
+             JOIN locations l ON o.location_id = l.location_id
+             ORDER BY o.created_at DESC`
+        );
+
+        res.json({
+            success: true,
+            count: orders.length,
+            data: orders
+        });
     } catch (error) {
-        return res.status(500).json({ message: 'Error retrieving orders', error: error.message });
+        console.error('Error fetching orders:', error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message
+        });
     }
 };
 
 // Get order by ID
-const getOrderById = async (req, res) => {
-    const { orderId } = req.params; // Assuming order ID is passed as a URL parameter
-
+exports.getOrderById = async (req, res) => {
     try {
-        const order = await OrderService.getOrderById(orderId);
-        if (!order) {
-            return res.status(404).json({ message: 'Order not found' });
+        const { id } = req.params;
+
+        const [orders] = await db.query(
+            `SELECT o.*, l.location_name
+             FROM orders o
+             JOIN locations l ON o.location_id = l.location_id
+             WHERE o.order_id = ?`,
+            [id]
+        );
+
+        if (orders.length === 0) {
+            return res.status(404).json({
+                error: 'Not Found',
+                message: 'Order not found'
+            });
         }
-        return res.status(200).json(order);
+
+        const [items] = await db.query(
+            `SELECT oi.*, p.product_name, p.packaging
+             FROM order_items oi
+             JOIN products p ON oi.product_id = p.product_id
+             WHERE oi.order_id = ?`,
+            [id]
+        );
+
+        res.json({
+            success: true,
+            data: {
+                ...orders[0],
+                items: items
+            }
+        });
     } catch (error) {
-        return res.status(500).json({ message: 'Error retrieving order', error: error.message });
+        console.error('Error fetching order:', error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message
+        });
     }
 };
 
 // Get orders by location
-const getOrdersByLocation = async (req, res) => {
-    const { location } = req.params; // Assuming location is passed as a URL parameter
-
+exports.getOrdersByLocation = async (req, res) => {
     try {
-        const orders = await OrderService.getOrdersByLocation(location);
-        return res.status(200).json(orders);
+        const { locationId } = req.params;
+
+        const [orders] = await db.query(
+            `SELECT o.*, l.location_name
+             FROM orders o
+             JOIN locations l ON o.location_id = l.location_id
+             WHERE o.location_id = ?
+             ORDER BY o.created_at DESC`,
+            [locationId]
+        );
+
+        res.json({
+            success: true,
+            count: orders.length,
+            data: orders
+        });
     } catch (error) {
-        return res.status(500).json({ message: 'Error retrieving orders', error: error.message });
+        console.error('Error fetching orders by location:', error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message
+        });
     }
 };
 
 // Get orders by date range
-const getOrdersByDateRange = async (req, res) => {
-    const { startDate, endDate } = req.params; // Assuming dates are passed as URL parameters
-
+exports.getOrdersByDateRange = async (req, res) => {
     try {
-        const orders = await OrderService.getOrdersByDateRange(startDate, endDate);
-        return res.status(200).json(orders);
-    } catch (error) {
-        return res.status(500).json({ message: 'Error retrieving orders', error: error.message });
-    }
-};
+        const { startDate, endDate } = req.params;
 
-// Export the functions
-module.exports = {
-    createOrder,
-    getAllOrders,
-    getOrderById,
-    getOrdersByLocation,
-    getOrdersByDateRange
+        const [orders] = await db.query(
+            `SELECT o.*, l.location_name
+             FROM orders o
+             JOIN locations l ON o.location_id = l.location_id
+             WHERE o.order_date BETWEEN ? AND ?
+             ORDER BY o.created_at DESC`,
+            [startDate, endDate]
+        );
+
+        res.json({
+            success: true,
+            count: orders.length,
+            data: orders
+        });
+    } catch (error) {
+        console.error('Error fetching orders by date range:', error);
+        res.status(500).json({
+            error: 'Internal Server Error',
+            message: error.message
+        });
+    }
 };
