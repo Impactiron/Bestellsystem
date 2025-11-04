@@ -1,30 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bestellsystem - Warenbestellung</title>
     <link rel="stylesheet" href="styles.css">
-    <title>Order Form</title>
 </head>
 <body>
-    <h1>Order Form</h1>
-    <form id="orderForm">
-        <label for="location">Select Location:</label>
-        <select id="location" name="location">
-            <option value="bregenz">Bregenz</option>
-            <option value="dornbirn">Dornbirn</option>
-            <option value="feldkirch">Feldkirch</option>
-            <option value="bludenz">Bludenz</option>
-        </select>
-        <div id="productDisplay">
-            <label for="product1">Product 1:</label>
-            <input type="number" id="product1" name="product1" min="0" placeholder="Quantity">
-            <label for="product2">Product 2:</label>
-            <input type="number" id="product2" name="product2" min="0" placeholder="Quantity">
-            <!-- Additional products can be added similarly -->
+    <div class="container">
+        <header class="header">
+            <h1>Bestellsystem</h1>
+            <p class="subtitle">Warenbestellung für Standorte</p>
+        </header>
+        <div class="location-selector">
+            <label for="location">Standort auswählen:</label>
+            <select id="location" name="location" required>
+                <option value="">-- Bitte wählen --</option>
+                <option value="1">Bregenz</option>
+                <option value="2">Dornbirn</option>
+                <option value="3">Feldkirch</option>
+                <option value="4">Bludenz</option>
+            </select>
         </div>
-        <button type="submit">Submit Order</button>
-    </form>
+        <form id="orderForm" class="order-form">
+            <div class="products-container" id="productsContainer"></div>
+            <div class="order-summary" id="orderSummary">
+                <h3>Bestellübersicht</h3>
+                <div class="summary-content">
+                    <p class="summary-item"><span>Standort:</span><span id="summaryLocation">-</span></p>
+                    <p class="summary-item"><span>Anzahl Artikel:</span><span id="summaryCount">0</span></p>
+                    <p class="summary-item"><span>Gesamtmenge:</span><span id="summaryTotal">0</span></p>
+                </div>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" id="resetBtn">Zurücksetzen</button>
+                <button type="submit" class="btn btn-primary" id="submitBtn">Bestellung absenden</button>
+            </div>
+        </form>
+        <div class="message" id="message"></div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
