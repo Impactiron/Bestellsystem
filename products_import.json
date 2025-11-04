@@ -1,0 +1,82 @@
+{
+  "categories": [
+    {
+      "category_name": "Chemie",
+      "description": "Cleaning chemicals and chemical products"
+    }
+  ],
+  "subcategories": [
+    {
+      "subcategory_name": "Unterhaltsreiniger",
+      "category_name": "Chemie",
+      "description": "Maintenance cleaners for general cleaning purposes"
+    },
+    {
+      "subcategory_name": "Sanitärreiniger",
+      "category_name": "Chemie",
+      "description": "Sanitary cleaners for bathroom and wet room cleaning"
+    },
+    {
+      "subcategory_name": "sonstige Reiniger",
+      "category_name": "Chemie",
+      "description": "Other specialized cleaners"
+    }
+  ],
+  "products": [
+    {
+      "product_name": "GLASFEE ECO",
+      "clustered_name": "Oberflächen-Schnellreiniger, Glasreiniger",
+      "category_name": "Chemie",
+      "subcategory_name": "Unterhaltsreiniger",
+      "description": "GLASFEE ECO ist geeignet zur schnellen, streifenfreien Reinigung von Glas, Spiegeln sowie allen glänzenden, wasserfesten Oberflächen.\n\n• Innenraumreiniger / Cockpitpflege\n• Ausgezeichnet mit dem Umweltzeichen der Europäischen Union (EU-Ecolabel) und dem Cradle to Cradle Gold Zertifikat\n• Rückstandsfreier Schnellreiniger für wasserfeste Oberflächen\n• Trocknet schnell und schlierenfrei ab, bremst die Wiederanschmutzung\n• Frei von Duftstoffen",
+      "packaging": "500 ml Flasche",
+      "image_url": "/images/glasfee-eco.jpg",
+      "unit_price": null,
+      "is_active": true
+    },
+    {
+      "product_name": "LEVANTE Eco",
+      "clustered_name": "Alkohol-Glanzreiniger",
+      "category_name": "Chemie",
+      "subcategory_name": "Unterhaltsreiniger",
+      "description": "Ökologischer Alkohol-Glanzreiniger\n\nIdeal für alle wasserbeständigen, beschichteten und unbeschichteten Bodenbeläge, z.B. Natur- und Kunststein, Kautschuk, Linoleum PVC etc. Aufgrund der hervorragenden Benetzungseigenschaft auch auf PU/PUR vergüteten Bodenbelägen anwendbar. Rückstandsfrei in der Oberflächenreinigung von glatten, glänzenden Flächen z.B. Kunststoff, Lack, Glas, Keramik, Metall. Zur nebelfeuchten Reinigung von geölten, gewachsten Holzflächen geeignet. Nicht auf unversiegeltem Holz und Plexiglas einsetzen!\n\n• Zertifziert mit dem EU Ecolabel und Cradle to Cradle Gold Zertifikat\n• In CO2 neutralen Rezyklatgebinden\n• Kennzeichnungsfreie, schaumarme Formulierung, die auch in Scheuersaugautomaten verwendet werden kann\n• Optimale Material- und Hautschonung durch neutralen pH-Wert",
+      "packaging": "10 L Kanister",
+      "image_url": "/images/levante-eco.jpg",
+      "unit_price": null,
+      "is_active": true
+    },
+    {
+      "product_name": "Duftspray Citrus",
+      "clustered_name": "Raumspray",
+      "category_name": "Chemie",
+      "subcategory_name": "Unterhaltsreiniger",
+      "description": "• Langanhaltende Raumfrische in Sekundenschnelle\n• Effektive Tilgung störender Gerüche\n• angenehmen Zitronen-Frischeduft\n• Umweltschonend, weil ohne Treibgas",
+      "packaging": "500 ml Flasche",
+      "image_url": "/images/duftspray-citrus.jpg",
+      "unit_price": null,
+      "is_active": true
+    },
+    {
+      "product_name": "MILIZID Eco",
+      "clustered_name": "Sanitärreiniger, Kalklöser",
+      "category_name": "Chemie",
+      "subcategory_name": "Sanitärreiniger",
+      "description": "Ökologischer Sanitärreiniger & Kalklöser\n\nMILIZID ECO ist für die wirksame Reinigung aller säurebeständigen, abwaschbaren Flächen, Inventar, Fliesenwände und -böden in Sanitärräumen und Nasszellen geeignet.\nBei hartnäckigen Verschmutzungen höher dosieren, gegebenenfalls unverdünnt anwenden.\n\n• Ausgezeichnet mit dem EU-Ecolabel und dem Cradle to Cradle Gold Zertifikat\n• In Rezyklatgebinden\n• Mit dem besonderen Ablaufeffekt, Kalk- und Schmutzblockerwirkung\n• RK-gelistet (0,25 – 100 %)",
+      "packaging": "10 L Kanister",
+      "image_url": "/images/milizid-eco.jpg",
+      "unit_price": null,
+      "is_active": true
+    },
+    {
+      "product_name": "NOVO Pen-Off",
+      "clustered_name": "Fleckentferner",
+      "category_name": "Chemie",
+      "subcategory_name": "sonstige Reiniger",
+      "description": "Gebrauchsfertiger Oberflächenreiniger\nEinsetzbar auf allen lösemittelbeständigen Oberflächen, Kunststoffen, Metallen, Glas (jedoch kein Plexiglas). Fleckentferner für Teppich und Polster, ideal zur Kopfpolster-Reinigung und zur Entfernung von wasserlöslichen Getränkerückständen sowie Creme-, Make-up-Fettrückstände.\n\n• Textil- und Polsterreiniger / Fleckenentferner\n• Entfernt spontan Tinte, Stempelfarbe, Filzstift, fest haftende Etikettenrückstände, Edding-Striche, Kugelschreiber, Absatzstriche\n• Gebrauchsfertige Sprühlösung mit hoher Reinigungsleistung\n• Punktuell anwendbar mit Spraytechnik\n• Reinigt streifen- und rückstandsfrei ohne Nachwischen\n• Angenehmer Duft",
+      "packaging": "500 ml Flasche",
+      "image_url": "/images/novo-pen-off.jpg",
+      "unit_price": null,
+      "is_active": true
+    }
+  ]
+}
