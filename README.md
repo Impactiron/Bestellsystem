@@ -1,46 +1,46 @@
-Du bist mein Lead-Programmierer und Lead-Designer für ein webbasiertes Lagerinventarsystem für Reinigungschemie. Bitte entwickle ein vollständiges Webprojekt mit folgenden Anforderungen:
+You are my Lead Developer and Lead Designer for a web-based inventory ordering system for cleaning chemicals. Please develop a complete web project based on the following requirements:
 
-**Ziel:**  
-Einfaches Bestellsystem für Mitarbeiter an vier Standorten (Bregenz, Dornbirn, Feldkirch, Bludenz), um Reinigungschemie aus einem zentralen Lager zu bestellen.
+**Goal:**  
+Create a simple and user-friendly ordering system for employees at four locations (Bregenz, Dornbirn, Feldkirch, Bludenz) to request cleaning products from a central warehouse.
 
 **Frontend:**  
-- Eine Eingabemaske pro Standort (z. B. über Dropdown oder URL-Parameter auswählbar)
-- Produktliste mit:
-  - Produktbild
-  - Produktbezeichnung
-  - Beschreibung
-  - Gebindegröße
-  - Eingabefeld für Bestellmenge
-- Benutzerfreundliches, responsives Design mit HTML, CSS und JavaScript (oder React, wenn sinnvoll)
+- A separate input form per location (selectable via dropdown or URL parameter)
+- Product list should include:
+  - Product image
+  - Product name
+  - Description
+  - Packaging size
+  - Input field for quantity to order
+- Clean, responsive design using HTML, CSS, and JavaScript (or optionally React)
 
 **Backend:**  
-- Speicherung der Bestellungen in einer Datenbank (z. B. SQLite oder MySQL)
-- Automatische Generierung eines Bestellblatts (z. B. als PDF) nach Absenden der Bestellung
-- Ablage des PDFs im Backend unter einem Ordnerpfad wie `/backend/bahnhof/<standort>/<datum>.pdf`
+- Store submitted orders in a database (e.g. SQLite or MySQL)
+- Automatically generate an order sheet (PDF) after submission
+- Save the PDF in a backend folder structure like `/backend/bahnhof/<location>/<date>.pdf`
 
-**Datenquelle:**  
-Die Produktdaten stammen aus einer Excel-Datei mit folgenden Spalten:
-- Bild
-- Produktbezeichnung
-- Produktbezeichnung - Clusterung
-- Kategorie
-- Unterkategorie
-- Beschreibung
-- Gebinde
+**Data Source:**  
+Product data is provided in an Excel file with the following columns:
+- Image
+- Product Name
+- Clustered Product Name
+- Category
+- Subcategory
+- Description
+- Packaging
 
-Verwende diese Daten als Grundlage für die Produktliste im Frontend. Du kannst sie als JSON oder direkt in der Datenbankstruktur einbauen.
+Use this data as the basis for the product list in the frontend. You may convert it to JSON or import it into the database.
 
-**Technologien:**  
-- HTML, CSS, JavaScript (ggf. React)
-- Backend in Node.js oder Python (z. B. Flask)
-- Datenbank: SQLite oder MySQL
-- PDF-Generierung mit einer passenden Bibliothek (z. B. jsPDF, Puppeteer oder ReportLab)
+**Technologies:**  
+- HTML, CSS, JavaScript (or React)
+- Backend in Node.js or Python (e.g. Flask)
+- Database: SQLite or MySQL
+- PDF generation using a suitable library (e.g. jsPDF, Puppeteer, or ReportLab)
 
-Erstelle bitte:
-1. Die Datenbankstruktur
-2. Das Frontend-Layout
-3. Die Backend-Logik zur Bestellverarbeitung
-4. Die PDF-Generierung und Ablage
-5. Optional: Admin-Ansicht zur Übersicht aller Bestellungen
+Please deliver:
+1. Database schema
+2. Frontend layout and logic
+3. Backend logic for order processing
+4. PDF generation and file saving
+5. (Optional) Admin view to review all orders
 
-Kommentiere den Code gut und strukturiere das Projekt so, dass es leicht erweiterbar ist.
+Comment the code clearly and structure the project for easy future expansion.
