@@ -1,4 +1,4 @@
-const apiBaseUrl = '/api/orders';
+const apiBaseUrl = 'https://bestellsystem.onrender.com/api/orders';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const locationSelect = document.getElementById('location');
