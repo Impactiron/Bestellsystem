@@ -1,0 +1,62 @@
+[
+  {
+    "product_id": 1,
+    "image": "assets/images/spuelmittel-ultra.jpg",
+    "product_name": "Spülmittel Ultra",
+    "clustered_product_name": "Spülmittel",
+    "category": "Küche",
+    "subcategory": "Reiniger",
+    "description": "Effektives Spülmittel für Geschirr und Küchenutensilien.",
+    "packaging": "Flasche 1L"
+  },
+  {
+    "product_id": 2,
+    "image": "assets/images/desinfektion-oberflaeche.jpg",
+    "product_name": "Flächendesinfektion",
+    "clustered_product_name": "Desinfektion",
+    "category": "Oberflächen",
+    "subcategory": "Desinfektion",
+    "description": "Wirksame Desinfektion für alle abwaschbaren Oberflächen.",
+    "packaging": "Kanister 5L"
+  },
+  {
+    "product_id": 3,
+    "image": "assets/images/fensterreiniger.jpg",
+    "product_name": "Fensterreiniger Glasklar",
+    "clustered_product_name": "Glasreiniger",
+    "category": "Glas",
+    "subcategory": "Reiniger",
+    "description": "Für streifenfreie Sauberkeit auf allen Glasflächen.",
+    "packaging": "Sprühflasche 500ml"
+  },
+  {
+    "product_id": 4,
+    "image": "assets/images/geschirrspuelpulver.jpg",
+    "product_name": "Geschirrspül-Pulver",
+    "clustered_product_name": "Spülpulver",
+    "category": "Küche",
+    "subcategory": "Reiniger",
+    "description": "Stark gegen Fett und Eingebranntes.",
+    "packaging": "Beutel 2kg"
+  },
+  {
+    "product_id": 5,
+    "image": "assets/images/allzweckreiniger.jpg",
+    "product_name": "Allzweckreiniger Citrus",
+    "clustered_product_name": "Reiniger",
+    "category": "Boden",
+    "subcategory": "Universal",
+    "description": "Für Böden und Oberflächen – frischer Duft.",
+    "packaging": "Flasche 1L"
+  },
+  {
+    "product_id": 6,
+    "image": "assets/images/toilettenreiniger.jpg",
+    "product_name": "Toilettenreiniger Fresh",
+    "clustered_product_name": "WC-Reiniger",
+    "category": "Sanitär",
+    "subcategory": "Reiniger",
+    "description": "Entfernt Kalk und Urinstein schnell und gründlich.",
+    "packaging": "Flasche 750ml"
+  }
+]
